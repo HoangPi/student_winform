@@ -45,5 +45,13 @@ namespace Student_Management
             cForm.ShowDialog();
             this.Show();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            contact cForm = new contact("instructor", this.iid);
+            this.Hide();
+            cForm.ShowDialog();
+            this.Show();
+        }
     }
 }

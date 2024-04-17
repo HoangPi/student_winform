@@ -35,11 +35,13 @@ namespace Student_Management
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
+            
             try
             {
                 DataGridViewRow row = dataGridView1.CurrentRow;
+                if(row == null) return;
                 stdNameInput.Text = row.Cells[8].Value.ToString();
-                if (row.Cells[3].Value.ToString() != "")
+                if (row.Cells[3].Value.ToString() != "" && row.Cells[4].Value.ToString() != "")
                 {
                     score1Input.ReadOnly= true;
                     score2Input.ReadOnly= true;
@@ -55,7 +57,9 @@ namespace Student_Management
                     if (ds.Tables[0].Rows.Count <= 0) updateScoreBtn.Enabled = false;
                 }
             }
-            catch { }
+            catch(Exception ex) {
+                Console.WriteLine(ex.Message); 
+            }
         }
 
         private void updateScoreBtn_Click(object sender, EventArgs e)
@@ -63,8 +67,14 @@ namespace Student_Management
             DataGridViewRow row = dataGridView1.CurrentRow;
             SqlCommand cmd = new SqlCommand("add_score",GlobalVars.connection);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add(new SqlParameter("@score1",SqlDbType.Int) { Value = score1Input.Text});
-            cmd.Parameters.Add(new SqlParameter("@score2", SqlDbType.Int) { Value=score2Input.Text});
+            if (score1Input.Text != "")
+            {
+                cmd.Parameters.Add(new SqlParameter("@score1",SqlDbType.Float) { Value = score1Input.Text});
+            }
+            if(score2Input.Text != "")
+            {
+                cmd.Parameters.Add(new SqlParameter("@score2", SqlDbType.Float) { Value=score2Input.Text});
+            }
             cmd.Parameters.Add(new SqlParameter("@sid", SqlDbType.Int) { Value = row.Cells[7].Value.ToString() });
             cmd.Parameters.Add(new SqlParameter("@cid", SqlDbType.Int) { Value = this.cid });
             try
