@@ -83,5 +83,35 @@ namespace Student_Management
                 this.Show();
             }
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            using (addCourse addCourseForm = new addCourse())
+            {
+                this.Hide();
+                addCourseForm.ShowDialog();
+                this.Show();
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            using (courseManager courseManager = new courseManager())
+            {
+                this.Hide();
+                courseManager.ShowDialog();
+                this.Show();
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            using (removeStdFromCourse removeStdFrom = new removeStdFromCourse())
+            {
+                this.Hide();
+                removeStdFrom.ShowDialog();
+                this.Show();
+            }
+        }
     }
 }

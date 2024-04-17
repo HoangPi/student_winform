@@ -33,23 +33,35 @@ namespace Student_Management
             {
                 using (var reader = command.ExecuteReader())
                 {
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         Console.WriteLine($"{reader.GetInt32(0)}-{reader.GetString(1)}-{reader.GetString(2)}");
                         label1.Text = ($"{reader.GetInt32(0)}-{reader.GetString(1)}-{reader.GetString(2)}");
-                        
-                        if(reader.GetString(2)=="student") using(stdHomePage homePage = new stdHomePage(reader.GetString(1), reader.GetInt32(0).ToString(), reader.GetString(2)))
+
+                        if (reader.GetString(2) == "student")
                         {
-                            this.Hide();
-                            homePage.ShowDialog();
-                            this.Show();
-                        };
-                        if (reader.GetString(2) == "manager") using (managerHomePage homePage = new managerHomePage(reader.GetString(1), reader.GetInt32(0).ToString(), reader.GetString(2)))
+                            using (stdHomePage homePage = new stdHomePage(reader.GetString(1), reader.GetInt32(0).ToString(), reader.GetString(2)))
+                            {
+                                this.Hide();
+                                homePage.ShowDialog();
+                                this.Show();
+                            }
+                        }
+                        else if (reader.GetString(2) == "manager") {
+                            using (managerHomePage homePage = new managerHomePage(reader.GetString(1), reader.GetInt32(0).ToString(), reader.GetString(2)))
                             {
                                 this.Hide();
                                 homePage.ShowDialog();
                                 this.Show();
                             };
+                        }
+                        else
+                        {
+                            instructorHomepage k = new instructorHomepage(reader.GetInt32(0), reader.GetString(1));
+                            this.Hide();
+                            k.ShowDialog();
+                            this.Show();
+                        }
                     }
                 }
             }

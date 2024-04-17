@@ -61,6 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="addCourse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="addCourse.Designer.cs">
+      <DependentUpon>addCourse.cs</DependentUpon>
+    </Compile>
     <Compile Include="addInstructor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,11 +79,35 @@
     <Compile Include="addNewStd.Designer.cs">
       <DependentUpon>addNewStd.cs</DependentUpon>
     </Compile>
+    <Compile Include="courseManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="courseManager.Designer.cs">
+      <DependentUpon>courseManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="courseView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="courseView.Designer.cs">
+      <DependentUpon>courseView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="instructorHomepage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="instructorHomepage.Designer.cs">
+      <DependentUpon>instructorHomepage.cs</DependentUpon>
+    </Compile>
     <Compile Include="managerHomePage.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="managerHomePage.Designer.cs">
       <DependentUpon>managerHomePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="removeStdFromCourse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="removeStdFromCourse.Designer.cs">
+      <DependentUpon>removeStdFromCourse.cs</DependentUpon>
     </Compile>
     <Compile Include="resetPassword.cs">
       <SubType>Form</SubType>
@@ -100,14 +130,29 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GlobalVars.cs" />
+    <EmbeddedResource Include="addCourse.resx">
+      <DependentUpon>addCourse.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="addInstructor.resx">
       <DependentUpon>addInstructor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="addNewStd.resx">
       <DependentUpon>addNewStd.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="courseManager.resx">
+      <DependentUpon>courseManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="courseView.resx">
+      <DependentUpon>courseView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="instructorHomepage.resx">
+      <DependentUpon>instructorHomepage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="managerHomePage.resx">
       <DependentUpon>managerHomePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="removeStdFromCourse.resx">
+      <DependentUpon>removeStdFromCourse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="resetPassword.resx">
       <DependentUpon>resetPassword.cs</DependentUpon>
