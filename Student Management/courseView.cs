@@ -81,12 +81,6 @@ namespace Student_Management
             {
                 cmd.ExecuteNonQuery();
                 this.courseView_Load(sender, e);
-                /*ds.Clear();
-                string query = $"select * from courseDetail where cid={this.cid}";
-                SqlDataAdapter adapter = new SqlDataAdapter(query, GlobalVars.connection);
-                adapter.Fill(ds);
-                dataGridView1.DataSource = ds.Tables[0];
-                dataGridView1.Refresh();*/
             }
             catch(Exception ex)
             {

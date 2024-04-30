@@ -21,18 +21,18 @@ namespace Student_Management
             InitializeComponent();
             this.iid = instructorId;
             this.iname = instructorName;
-            label1.Text = instructorName + " - " + instructorId;
+            
+        }
+
+        private void instructorHomepage_Load(object sender, EventArgs e)
+        {
+            label1.Text = iname + " - " + iid;
 
             string query = $"select cid as course_id, cname as course_name, credit from course where iid={this.iid}";
             SqlDataAdapter adapter = new SqlDataAdapter(query, GlobalVars.connection);
             adapter.Fill(ds);
             courseGridView.DataSource = ds.Tables[0];
             courseGridView.Refresh();
-        }
-
-        private void instructorHomepage_Load(object sender, EventArgs e)
-        {
-
         }
 
 
