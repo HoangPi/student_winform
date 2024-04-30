@@ -83,15 +83,16 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "label1";
             // 
-            // Form1
+            // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.credentialInputGroup);
-            this.Name = "Form1";
+            this.Name = "LoginForm";
             this.Text = "Student management";
+            this.Load += new System.EventHandler(this.LoginForm_Load);
             this.credentialInputGroup.ResumeLayout(false);
             this.credentialInputGroup.PerformLayout();
             this.ResumeLayout(false);

@@ -26,27 +26,7 @@ namespace Student_Management
             this.userName = username;
             this.role = ro;
             //Get all students
-            string query = "SELECT Student.Sid, Fullname, Dob, Gender, Cccd, Year_start, Username, " +
-                "Phone, Email, Address " +
-                "FROM STUDENT " +
-                "left JOIN CONTACT_ST ON STUDENT.Sid = CONTACT_ST.Sid";
-            SqlCommand cmd = new SqlCommand(query,GlobalVars.connection);
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            DataSet ds = new DataSet();
-            adapter.Fill(ds);
-            studentSheet.DataSource = ds.Tables[0];
-            studentSheet.Refresh();
-            //Get all instructor
-            query = "SELECT INSTRUCTOR.Iid, Fullnameins, Username " +
-                ", Phone, Email, Address " +
-                "FROM INSTRUCTOR " +
-                "LEFT JOIN CONTACT_INS ON INSTRUCTOR.Iid = CONTACT_INS.Iid";
-            cmd = new SqlCommand(query, GlobalVars.connection);
-            adapter = new SqlDataAdapter(cmd);
-            ds = new DataSet();
-            adapter.Fill(ds);
-            instructorSheet.DataSource = ds.Tables[0];
-            instructorSheet.Refresh();
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -56,6 +36,7 @@ namespace Student_Management
             {
                 newstd.ShowDialog();
             }
+            this.managerHomePage_Load(sender, e);
             this.Show();
         }
 
@@ -66,12 +47,28 @@ namespace Student_Management
             {
                 newIns.ShowDialog();
             }
+            this.managerHomePage_Load(sender, e);
             this.Show();
         }
 
         private void managerHomePage_Load(object sender, EventArgs e)
         {
-
+            string query = "select * from student_detail";
+            SqlDataAdapter adapter = new SqlDataAdapter(query, GlobalVars.connection);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds);
+            studentSheet.DataSource = ds.Tables[0];
+            studentSheet.Refresh();
+            //Get all instructor
+            query = "SELECT INSTRUCTOR.Iid, Fullnameins, Username " +
+                ", Phone, Email, Address " +
+                "FROM INSTRUCTOR " +
+                "LEFT JOIN CONTACT_INS ON INSTRUCTOR.Iid = CONTACT_INS.Iid";
+            adapter = new SqlDataAdapter(query, GlobalVars.connection);
+            ds = new DataSet();
+            adapter.Fill(ds);
+            instructorSheet.DataSource = ds.Tables[0];
+            instructorSheet.Refresh();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -80,6 +77,7 @@ namespace Student_Management
             {
                 this.Hide();
                 resetForm.ShowDialog();
+                this.managerHomePage_Load(sender, e);
                 this.Show();
             }
         }
@@ -90,6 +88,7 @@ namespace Student_Management
             {
                 this.Hide();
                 addCourseForm.ShowDialog();
+                this.managerHomePage_Load(sender, e);
                 this.Show();
             }
         }
@@ -100,6 +99,7 @@ namespace Student_Management
             {
                 this.Hide();
                 courseManager.ShowDialog();
+                this.managerHomePage_Load(sender, e);
                 this.Show();
             }
         }
@@ -110,8 +110,27 @@ namespace Student_Management
             {
                 this.Hide();
                 removeStdFrom.ShowDialog();
+                this.managerHomePage_Load(sender, e);
                 this.Show();
             }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            contact cForm = new contact("manager", Int32.Parse(this.userID));
+            this.Hide();
+            cForm.ShowDialog();
+            this.managerHomePage_Load(sender, e);
+            this.Show();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            warningForm wForm = new warningForm();
+            this.Hide();
+            wForm.ShowDialog();
+            this.managerHomePage_Load(sender, e);
+            this.Show();
         }
     }
 }

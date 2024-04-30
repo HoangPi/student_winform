@@ -16,6 +16,7 @@ namespace Student_Management
         public resetPassword()
         {
             InitializeComponent();
+            label1.Text = "";
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -25,6 +26,7 @@ namespace Student_Management
             try
             {
                 cmd.ExecuteNonQuery();
+                label1.Text = "Account reset";
             }
             catch (Exception ex)
             {

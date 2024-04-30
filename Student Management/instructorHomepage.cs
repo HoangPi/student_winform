@@ -21,7 +21,12 @@ namespace Student_Management
             InitializeComponent();
             this.iid = instructorId;
             this.iname = instructorName;
-            label1.Text = instructorName + " - " + instructorId;
+            
+        }
+
+        private void instructorHomepage_Load(object sender, EventArgs e)
+        {
+            label1.Text = iname + " - " + iid;
 
             string query = $"select cid as course_id, cname as course_name, credit from course where iid={this.iid}";
             SqlDataAdapter adapter = new SqlDataAdapter(query, GlobalVars.connection);
@@ -30,17 +35,20 @@ namespace Student_Management
             courseGridView.Refresh();
         }
 
-        private void instructorHomepage_Load(object sender, EventArgs e)
-        {
-
-        }
-
 
         private void courseGridView_DoubleClick(object sender, EventArgs e)
         {
             DataGridViewRow row = courseGridView.CurrentRow;
             Console.WriteLine(row.Cells[0].Value);
             courseView cForm = new courseView(ds.Tables[0].Rows[row.Index][0].ToString());
+            this.Hide();
+            cForm.ShowDialog();
+            this.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            contact cForm = new contact("instructor", this.iid);
             this.Hide();
             cForm.ShowDialog();
             this.Show();

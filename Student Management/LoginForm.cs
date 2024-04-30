@@ -31,7 +31,49 @@ namespace Student_Management
             command.Parameters.Add(new SqlParameter("@password", SqlDbType.VarChar) { Value=passwordInput.Text });
             try
             {
-                using (var reader = command.ExecuteReader())
+                var reader = command.ExecuteReader();
+                reader.Read();
+                Console.WriteLine(reader.GetInt32(0));
+                int userid = reader.GetInt32(0);
+                string userName = reader.GetString(1);
+                string role = reader.GetString(2);
+                if(role == "student")
+                {
+                    stdHomePage homePage = new stdHomePage(userName, userid.ToString(), role);
+                    GlobalVars.connection.Close();
+                    GlobalVars.connection = new SqlConnection(GlobalVars.student_connection_string);
+                    GlobalVars.connection.Open();
+                    this.Hide();
+                    homePage.ShowDialog();
+                    this.Show();
+                }
+                else if(role == "manager")
+                {
+                    managerHomePage homePage = new managerHomePage(userName, userid.ToString(), role);
+                    GlobalVars.connection.Close();
+                    GlobalVars.connection = new SqlConnection(GlobalVars.manager_connection_string);
+                    GlobalVars.connection.Open();
+                    this.Hide();
+                    homePage.ShowDialog();
+                    this.Show();
+                }
+                else if(role == "instructor")
+                {
+                    label1.Text = "INSTRUC";
+                    instructorHomepage homepage = new instructorHomepage(userid,userName);
+                    GlobalVars.connection.Close();
+                    GlobalVars.connection = new SqlConnection(GlobalVars.instructor_connection_string);
+                    GlobalVars.connection.Open();
+                    Console.WriteLine(GlobalVars.connection.ConnectionString);
+                    this.Hide();
+                    homepage.ShowDialog();
+                    this.Show();
+                }
+                else
+                {
+
+                }
+                /*using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -50,30 +92,55 @@ namespace Student_Management
                         else if (reader.GetString(2) == "manager") {
                             using (managerHomePage homePage = new managerHomePage(reader.GetString(1), reader.GetInt32(0).ToString(), reader.GetString(2)))
                             {
+                                GlobalVars.connection.Close();
+                                GlobalVars.connection = new SqlConnection(GlobalVars.manager_connection_string);
+                                GlobalVars.connection.Open();
+                                Console.WriteLine(GlobalVars.connection.ConnectionString);
                                 this.Hide();
                                 homePage.ShowDialog();
                                 this.Show();
                             };
                         }
-                        else
+                        else if(reader.GetString(2)=="instructor")
                         {
-                            instructorHomepage k = new instructorHomepage(reader.GetInt32(0), reader.GetString(1));
-                            this.Hide();
-                            k.ShowDialog();
-                            this.Show();
+                            label1.Text = "HELLO";
+                            using(instructorHomepage homepage = new instructorHomepage(reader.GetInt32(0), reader.GetString(1)))
+                            {
+                                GlobalVars.connection.Close();
+                                GlobalVars.connection = new SqlConnection(GlobalVars.instructor_connection_string);
+                                GlobalVars.connection.Open();
+                                Console.WriteLine(GlobalVars.connection.ConnectionString);
+                                this.Hide();
+                                homepage.ShowDialog();
+                                this.Show();
+                            }
+                            
                         }
                     }
-                }
+                }*/
             }
             catch (Exception ex)
             {
                 label1.Text = ex.Message;
             }
-            
+            finally {
+                GlobalVars.connection.Close();
+                GlobalVars.connection = new SqlConnection(GlobalVars.guest_connection_string);
+                GlobalVars.connection.Open();
+                //label1.Text = GlobalVars.connection.ConnectionString;
+            }
+            //label1.Text = GlobalVars.connection.ConnectionString;
 
             //command = new SqlCommand("SELECT * FROM ACCOUNT", GlobalVars.connection);
             //reader = command.ExecuteReader();
             
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+            /*GlobalVars.connection.Close();
+            GlobalVars.connection = new SqlConnection(GlobalVars.guest_connection_string);
+            GlobalVars.connection.Open();*/
         }
     }
 }
